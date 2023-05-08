@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aidandlim.camagru.dao.CommentDao">
+
+    <select id="selectAllByPost" resultType="com.aidandlim.camagru.dto.Comment">
+        SELECT
+            c.id as id,
+            c.user_id as user_id,
+            c.post_id as post_id,
+            c.content as content,
+            CASE
+                WHEN MINUTE(TIMEDIFF(NOW(), c.time)) = 0 THEN 'RIGHT NOW'
+                WHEN c.time > DATE_ADD(NOW(), INTERVAL-1 HOUR) THEN CONCAT(MINUTE(TIMEDIFF(NOW(), c.time)), ' MINUTES AGO')
+                WHEN c.time > DATE_ADD(NOW(), INTERVAL-24 HOUR) THEN CONCAT(HOUR(TIMEDIFF(NOW(), c.time)), ' HOURS AGO')
+                ELSE CONCAT(DATEDIFF(NOW(), c.time), ' DAYS AGO') END as `time`,
+            u.nickname as user_nickname,
+            u.picture as user_picture
+        FROM
+            comment as c
+        LEFT JOIN
+            user as u
+        ON
+            c.user_id = u.id
+        WHERE
+            c.post_id = #{id}
+        ORDER BY
+            c.id
+    </select>
+
+    <insert id="insert">
+        INSERT INTO comment
+            (user_id, post_id, content)
+        VALUES
+            (#{user_id}, #{post_id}, #{content})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM
+            comment
+        WHERE
+            id = #{id}
+    </delete>
+
+</mapper>

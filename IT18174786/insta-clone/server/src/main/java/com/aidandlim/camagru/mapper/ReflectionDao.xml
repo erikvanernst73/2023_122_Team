@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aidandlim.camagru.dao.ReflectionDao">
+
+    <select id="selectAllByPost" resultType="com.aidandlim.camagru.dto.Reflection">
+        SELECT
+            r.id as id,
+            r.user_id as user_id,
+            r.post_id as post_id,
+            r.time as time,
+            u.nickname as user_nickname,
+            u.picture as user_picture
+        FROM
+            reflection as r
+        LEFT JOIN
+            user as u
+        ON
+            r.user_id = u.id
+        WHERE
+            r.post_id = #{id}
+        ORDER BY
+            r.id
+    </select>
+
+    <select id="select" resultType="com.aidandlim.camagru.dto.Reflection">
+        SELECT
+            *
+        FROM
+            reflection
+        WHERE
+            user_id = #{user_id}
+            AND
+            post_id = #{post_id}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO reflection
+            (user_id, post_id)
+        VALUES
+            (#{user_id}, #{post_id})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM
+            reflection
+        WHERE
+            user_id = #{user_id}
+            AND
+            post_id = #{post_id}
+    </delete>
+
+</mapper>

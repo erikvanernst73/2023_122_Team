@@ -1,0 +1,42 @@
+{
+  "name": "camagru",
+  "version": "2.0.0",
+  "private": true,
+  "proxy": "https://camagru.aidandlim.com:8443/api",
+  "dependencies": {
+    "axios": "^0.19.1",
+    "react": "^16.12.0",
+    "react-confirm-alert": "^2.4.1",
+    "react-cookies": "^0.1.1",
+    "react-device-detect": "^1.11.14",
+    "react-div-100vh": "^0.3.8",
+    "react-dom": "^16.12.0",
+    "react-icons": "^3.8.0",
+    "react-redux": "^7.1.3",
+    "react-scripts": "3.1.1",
+    "react-webcam": "^3.1.1",
+    "redux": "^4.0.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "prestart": "rm -f ./node_modules/webpack-dev-server/ssl/server.pem && cp -f ./cert/server.pem ./node_modules/webpack-dev-server/ssl",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
